@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home Work #1</title>
+</head>
+<script src="number3.js"></script>
+<body>
+</body>
+<script>
+    'use strict';
+    
+    //Задача #1
+    function loop(times = 0, callback = null){
+        if(callback != null){
+            for(var i = 0; i < times; i++){
+                callback();
+            }
+        }
+    }
+    
+    //Задача #2
+    function calculateArea(figure = 'triangle', height, wight, radius = null){
+        const pi = 3.14;
+        var info = {
+            figure:figure,
+            input:[height, wight]
+        };
+        switch(figure){
+            case 'triangle': info.area = height*wight*0.5; 
+                return info;
+            case 'circle': info.area = (radius != null) ? (radius*radius*pi) : "Не указан радиус";
+                return info;
+            default: info.area = height*wight; 
+                info.figure = "Квадрат , Прямоугольник, Ромб"; 
+                return info;
+        }
+    }
+    
+   //Задача #3
+    window.onload = function(){
+       let men1 = new Menager("Витя", 21, "21.05.1989", 1000000, "depart1");
+       console.log(men1.displayInfo()); 
+       let dev1 = new Devloper("Миша", 24, "14.01.1987", 1000000, "depart1");
+       console.log(dev1.displayInfo()); 
+        //добавление менаджера
+       dev1.setMenager(men1);
+        
+        console.log(dev1.getMenager);
+        console.log(men1.getDevloper(1));
+        //удаление разработчика 
+       men1.removeDevloper(1);
+        
+       console.log(men1.displayInfo());
+        
+        //Задача #4 на крутил тут что-то )
+        var button_4 = document.createElement("button");
+        button_4.innerText = "Задача #4";
+        button_4.addEventListener('click', function(){
+            let gen =  genProfile();
+            var next;
+            var answer = null;
+            for(;;){
+                next = (answer == null) ? gen.next() : gen.next(answer);
+                if(next.done)break;
+                answer = prompt(next.value);
+            }
+            console.log(next.value);
+        });
+        document.body.appendChild(button_4);
+        function* genProfile(){
+            let name = yield "Ваше Имя";
+            console.log(name);
+            let secondName = yield "Ваша Фамилия";
+            console.log(secondName);
+            let date = yield "Дата Рождения";
+            console.log(date);
+            let job = yield "Должность";
+            console.log(job);
+            return {
+                name:name,
+                secondName:secondName,
+                date:date,
+                job:job
+            };
+        }
+        
+        //Задача #5
+        let massPromise = [];
+        for(var i = 0 ; i < 10; i++){
+            massPromise.push(fetch('https://jsonplaceholder.typicode.com/users/'+(i+1))
+                    .then(function(response){
+                if(response.status == 200) {
+                    //console.log(response);
+                    //console.log(response.json());
+                    return response.json();
+                }
+            })
+                            );
+        }
+        console.log("============== Задача #5 ==========================")
+        massPromise.forEach(function(show){
+            
+            show.then(function(obj){
+               console.log(obj); 
+            });
+        });
+        
+    };
+        
+</script>
+</html>
