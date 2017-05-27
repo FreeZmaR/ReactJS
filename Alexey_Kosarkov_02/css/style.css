@@ -1,0 +1,17 @@
+.false-block{
+    display: none !important;
+}
+.show-time-block{
+    display: block;
+    background-color: beige;
+}
+.label{
+    display: block;
+}
+.up-label{
+    color: cornflowerblue;
+}
+.down-label{
+    color: darkorange;
+    margin-left: 10px;
+}
