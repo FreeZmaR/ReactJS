@@ -7,24 +7,24 @@ export default class ShowData
     }
     getDate(){
         this.date = new Date();
-        var month = this.date.getMonth()+1;
+        var month = this.date.getMonth();
         var min = this.switchTime(this.date.getMinutes());
         var sec = this.switchTime(this.date.getSeconds());
         var hour = this.switchTime(this.date.getHours());
 
         switch (month){
-            case 1: month = "Января"; break;
-            case 2: month = "Февраля"; break;
-            case 3: month = "Марта"; break;
-            case 4: month = "Апреля"; break;
-            case 5: month = "Мая"; break;
-            case 6: month = "Июня"; break;
-            case 7: month = "Июля"; break;
-            case 8: month = "Августа"; break;
-            case 9: month = "Сентября"; break;
-            case 10: month = "Октября"; break;
-            case 11: month = "Ноября"; break;
-            case 12: month = "Декрбря"; break;
+            case 0: month = "Января"; break;
+            case 1: month = "Февраля"; break;
+            case 2: month = "Марта"; break;
+            case 3: month = "Апреля"; break;
+            case 4: month = "Мая"; break;
+            case 5: month = "Июня"; break;
+            case 6: month = "Июля"; break;
+            case 7: month = "Августа"; break;
+            case 8: month = "Сентября"; break;
+            case 9: month = "Октября"; break;
+            case 10: month = "Ноября"; break;
+            case 11: month = "Декрбря"; break;
         }
         return  {
             day:this.date.getDate(),
