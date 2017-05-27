@@ -19,19 +19,23 @@ export default class RenderForm
        up_label.classList.add("up-label", 'label');
        down_label.classList.add("down-label", 'label');
        var dateTime = data.getDate();
-        var timer = setInterval(function () {
-            dateTime = data.getDate();
-            up_label.innerText = "Сегодня: "+ dateTime.day+" "+dateTime.month+" "+dateTime.yer;
-            down_label.innerText = "Время: "+dateTime.hour+":"+dateTime.min+":"+dateTime.sec;
-        },1000);
+        var timer ;
        button.addEventListener('click', function () {
 
             if(document.getElementsByClassName('false-block')[0]== null){
                 block.classList.add("false-block");
                 button.innerText = "Показать время";
+                if(timer != undefined){
+                    clearInterval(timer);
+                }
             }else {
                 block.className = "show-time-block";
                 button.innerText = "Скрыть";
+                timer = setInterval(function () {
+                    dateTime = data.getDate();
+                    up_label.innerText = "Сегодня: "+ dateTime.day+" "+dateTime.month+" "+dateTime.yer;
+                    down_label.innerText = "Время: "+dateTime.hour+":"+dateTime.min+":"+dateTime.sec;
+                },1000);
             }
        });
         block.appendChild(up_label);

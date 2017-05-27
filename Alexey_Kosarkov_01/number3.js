@@ -43,6 +43,7 @@ class Employee extends Human
 class Menager extends Employee
 {
     constructor(name = "", age = 0, dateOfBirth = "", solary = 0, deportament = ""){
+
         super(name, age,dateOfBirth,solary,deportament);
         this.devlopers = [];   
         this.id_devloper = 0;
@@ -51,11 +52,13 @@ class Menager extends Employee
     addDevloper(devloper = {}){
         if(Object.keys(devloper).length != 0){
             this.id_devloper += 1;
-            devloper.id = this.id_devloper;
-            if(Object.keys(devloper).length == 0){
+            if(JSON.stringify(devloper.menager) != JSON.stringify(this)){
                 devloper.setMenager(this);
             }
-            this.devlopers.push(devloper);
+            devloper.id = this.id_devloper;
+            this.devlopers.unshift(devloper);
+            console.log(devloper);
+            console.log(this.devlopers);
         }  
     }
     //Удаление разработчика по айди 
@@ -63,8 +66,7 @@ class Menager extends Employee
         id = (id == 0) ? this.id_devloper : id; 
         this.devlopers.forEach(function(dev, i, mass){
             if(id == dev.id){
-               //delete dev.manager;
-               dev.manager = {};
+               delete dev.manager;
                mass.splice(i, 1); 
             }
             if(i == (mass.length-1)){
@@ -111,9 +113,10 @@ class Devloper extends Employee
     constructor(name = "", age = 0, dateOfBirth = "", solary = 0, deportament = ""){
         super(name, age,dateOfBirth,solary,deportament);
         this.menager = {};
+        this.id = 0;
     }
     //отдача менаджера
-    get getMenager(){
+     get getMenager(){
         return this.menager;
     }
     //установка нового менаджера
@@ -123,11 +126,11 @@ class Devloper extends Employee
             if(Object.keys(this.menager).length == 0){
                 //добавление разработчика к менаджеру и менаджера к разработчику
                 this.menager = menager;
-                menager.addDevloper(this);
-                
+                menager.addDevloper(this); 
             }else{
                 //Удаление старого менеджера и разработчика от менаджера
                 this.menager.removeDevloper(this.id);
+                this.menager = menager;
                 menager.addDevloper(this);
             }
         }
